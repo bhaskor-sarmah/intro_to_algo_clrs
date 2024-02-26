@@ -9,7 +9,7 @@ public class SelectionSort {
 
 	public int[] sortArray(int[] inputArray) {
 		
-		for(int i=0;i<inputArray.length;i++) {
+		for(int i=0;i<inputArray.length-1;i++) {
 			int smallest = Integer.MAX_VALUE;
 			int position = -1;
 			for(int j=i;j<inputArray.length;j++) {
