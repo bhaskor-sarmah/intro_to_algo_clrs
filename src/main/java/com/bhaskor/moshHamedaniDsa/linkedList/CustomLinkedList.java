@@ -1,5 +1,7 @@
 package com.bhaskor.moshHamedaniDsa.linkedList;
 
+import java.util.NoSuchElementException;
+
 /**
  * Exercise: Building an implementation of linked list.
  * 
@@ -17,7 +19,7 @@ public class CustomLinkedList<T> {
 
 	public void addFirst(T data) {
 		final Node<T> newNode = new Node<>(data);
-		if (first == null) {
+		if (isEmpty()) {
 			addFirstItemWhenListIsEmpty(newNode);
 			return;
 		}
@@ -28,7 +30,7 @@ public class CustomLinkedList<T> {
 
 	public void addLast(T data) {
 		final Node<T> newNode = new Node<>(data);
-		if (first == null) {
+		if (isEmpty()) {
 			addFirstItemWhenListIsEmpty(newNode);
 			return;
 		}
@@ -38,8 +40,15 @@ public class CustomLinkedList<T> {
 	}
 
 	public T deleteFirst() {
-		if (first == null)
-			return null;
+		if (isEmpty())
+			throw new NoSuchElementException();
+		
+		if(first == last) {
+			T currentFirstNodeData = first.data;
+			first = last = null;
+			size--;
+			return currentFirstNodeData;
+		}
 
 		T currentFirstNodeData = first.data;
 		Node<T> nextNodeOfFirstNode = first.next;
@@ -54,9 +63,16 @@ public class CustomLinkedList<T> {
 	}
 
 	public T deleteLast() {
-		if (first == null)
-			return null;
+		if (isEmpty())
+			throw new NoSuchElementException();
 
+		if(first == last) {
+			T currentFirstNodeData = first.data;
+			first = last = null;
+			size--;
+			return currentFirstNodeData;
+		}
+		
 		Node<T> currentNode = first;
 		Node<T> nextNode = first.next;
 
@@ -76,7 +92,7 @@ public class CustomLinkedList<T> {
 		return indexOf(data) != -1;
 	}
 
-	private int indexOf(T data) {
+	public int indexOf(T data) {
 		int index = 0;
 		Node<T> currentNode = first;
 
@@ -89,6 +105,10 @@ public class CustomLinkedList<T> {
 		}
 
 		return -1;
+	}
+	
+	private boolean isEmpty() {
+		return first == null;
 	}
 
 	private void addFirstItemWhenListIsEmpty(final Node<T> newNode) {

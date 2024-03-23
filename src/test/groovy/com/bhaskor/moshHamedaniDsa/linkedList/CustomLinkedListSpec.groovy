@@ -72,7 +72,7 @@ class CustomLinkedListSpec extends Specification{
 		
 	}
 	
-	def "deleteFirst() when list is empty, should return null"() {
+	def "deleteFirst() when list is empty, should throw NoSuchElementException"() {
 		given:
 		
 		when:
@@ -80,7 +80,37 @@ class CustomLinkedListSpec extends Specification{
 		
 		then:
 		customLinkedList.size == 0
-		deletedEntry == null
+		thrown NoSuchElementException
+		
+	}
+	
+	def "deleteFirst() when list has one item, should delete the item to make the list empty"() {
+		given:
+		customLinkedList.addLast(15);
+		
+		when:
+		def deletedEntry = customLinkedList.deleteFirst();
+		
+		then:
+		customLinkedList.size == 0
+		customLinkedList.first == null
+		customLinkedList.last == null
+		
+	}
+	
+	def "deleteFirst() when list has two items, should delete the first item and return it"() {
+		given:
+		customLinkedList.addLast(15);
+		customLinkedList.addLast(23);
+		
+		when:
+		def deletedEntry = customLinkedList.deleteFirst();
+		
+		then:
+		deletedEntry == 15
+		customLinkedList.size == 1
+		customLinkedList.first.data == 23
+		customLinkedList.last.data == 23
 		
 	}
 	
@@ -102,7 +132,7 @@ class CustomLinkedListSpec extends Specification{
 		
 	}
 	
-	def "deleteLast() when list is empty, should return null"() {
+	def "deleteLast() when list is empty, should throw NoSuchElementException"() {
 		given:
 		
 		when:
@@ -110,7 +140,37 @@ class CustomLinkedListSpec extends Specification{
 		
 		then:
 		customLinkedList.size == 0
-		deletedEntry == null
+		thrown NoSuchElementException
+		
+	}
+	
+	def "deleteLast() when list has one item, should delete the item to make the list empty"() {
+		given:
+		customLinkedList.addLast(15);
+		
+		when:
+		def deletedEntry = customLinkedList.deleteLast();
+		
+		then:
+		customLinkedList.size == 0
+		customLinkedList.first == null
+		customLinkedList.last == null
+		
+	}
+	
+	def "deleteLast() when list has two items, should delete the last item and return it"() {
+		given:
+		customLinkedList.addLast(15);
+		customLinkedList.addLast(23);
+		
+		when:
+		def deletedEntry = customLinkedList.deleteLast();
+		
+		then:
+		deletedEntry == 23
+		customLinkedList.size == 1
+		customLinkedList.first.data == 15
+		customLinkedList.last.data == 15
 		
 	}
 	
