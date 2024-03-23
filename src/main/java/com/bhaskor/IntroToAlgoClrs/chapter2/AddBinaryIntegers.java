@@ -1,7 +1,7 @@
 package com.bhaskor.IntroToAlgoClrs.chapter2;
 
 /**
- * Exercise 2.1-5: Adding binary integers present in two array in binary form
+ * Exercise 2.1-4: Adding binary integers present in two array in binary form
  * and store the sum in a third array
  * 
  * @author bhaskor

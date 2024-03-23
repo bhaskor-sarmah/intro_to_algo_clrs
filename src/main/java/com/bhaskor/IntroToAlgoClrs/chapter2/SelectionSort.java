@@ -1,7 +1,7 @@
 package com.bhaskor.IntroToAlgoClrs.chapter2;
 
 /**
- * Exercise 2.2-3: Implementing selection sort
+ * Exercise 2.2-2: Implementing selection sort
  * 
  * @author bhaskor
  */
