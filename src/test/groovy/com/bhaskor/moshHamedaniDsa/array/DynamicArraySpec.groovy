@@ -110,7 +110,7 @@ class DynamicArraySpec  extends Specification{
 		def indexOfElement = dynamicArray.indexOf(54)
 		
 		then:
-		indexOfElement == 7
+		indexOfElement == 6
 	}
 	
 	def "Calling indexOf when data is not available in the array should return -1"() {

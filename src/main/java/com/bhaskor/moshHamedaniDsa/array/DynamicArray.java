@@ -42,7 +42,7 @@ public class DynamicArray {
 	public int indexOf(int element) {
 		for (int i = 0; i < noOfElement; i++) {
 			if (internalArray[i] == element)
-				return i + 1;
+				return i;
 		}
 		return -1;
 	}
