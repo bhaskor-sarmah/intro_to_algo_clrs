@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  * 
  * <p>
  * Methods to be created
- * <code>addFirst() addLast() deleteFirst() deleteLast() contains() indexOf</code>
+ * <code>addFirst() addLast() deleteFirst() deleteLast() contains() indexOf() size() toArray()</code>
  * 
  * @author bhaskor
  */
@@ -42,8 +42,8 @@ public class CustomLinkedList<T> {
 	public T deleteFirst() {
 		if (isEmpty())
 			throw new NoSuchElementException();
-		
-		if(first == last) {
+
+		if (listHasOneEntry()) {
 			T currentFirstNodeData = first.data;
 			first = last = null;
 			size--;
@@ -66,26 +66,35 @@ public class CustomLinkedList<T> {
 		if (isEmpty())
 			throw new NoSuchElementException();
 
-		if(first == last) {
+		if (listHasOneEntry()) {
 			T currentFirstNodeData = first.data;
 			first = last = null;
 			size--;
 			return currentFirstNodeData;
 		}
-		
-		Node<T> currentNode = first;
-		Node<T> nextNode = first.next;
 
-		while (nextNode.next != null) {
-			currentNode = currentNode.next;
-			nextNode = nextNode.next;
-		}
+		T currentLastNodeData = last.data;
 
-		currentNode.next = null;
-		last = currentNode;
+		Node<T> previousToLastNode = getPrevious(last);
+
+		previousToLastNode.next = null;
+		last = previousToLastNode;
+
 		size--;
 
-		return nextNode.data;
+		return currentLastNodeData;
+	}
+
+	private Node<T> getPrevious(Node<T> item) {
+		Node<T> current = first;
+		while (current.next != null) {
+			if (current.next == item)
+				return current;
+
+			current = current.next;
+		}
+
+		return null;
 	}
 
 	public boolean contains(T data) {
@@ -106,7 +115,27 @@ public class CustomLinkedList<T> {
 
 		return -1;
 	}
-	
+
+	public int size() {
+		return size;
+	}
+
+	public T[] toArray() {
+		@SuppressWarnings("unchecked")
+		final T[] array = (T[]) new Object[size];
+
+		int index = 0;
+
+		Node<T> current = first;
+
+		while (current != null) {
+			array[index++] = current.data;
+			current = current.next;
+		}
+
+		return array;
+	}
+
 	private boolean isEmpty() {
 		return first == null;
 	}
@@ -125,6 +154,10 @@ public class CustomLinkedList<T> {
 			this.data = data;
 			this.next = null;
 		}
+	}
+
+	private boolean listHasOneEntry() {
+		return first == last;
 	}
 
 }

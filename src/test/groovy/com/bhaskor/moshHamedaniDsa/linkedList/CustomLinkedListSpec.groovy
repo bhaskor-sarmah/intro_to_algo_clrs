@@ -26,7 +26,7 @@ class CustomLinkedListSpec extends Specification{
 		then:
 		customLinkedList.first.data == 5
 		customLinkedList.last.data == 5
-		customLinkedList.size == 1
+		customLinkedList.size() == 1
 		
 	}
 	
@@ -40,7 +40,7 @@ class CustomLinkedListSpec extends Specification{
 		then:
 		customLinkedList.first.data == 23
 		customLinkedList.last.data == 15
-		customLinkedList.size == 2
+		customLinkedList.size() == 2
 		
 	}
 	
@@ -53,7 +53,7 @@ class CustomLinkedListSpec extends Specification{
 		then:
 		customLinkedList.first.data == 5
 		customLinkedList.last.data == 5
-		customLinkedList.size == 1
+		customLinkedList.size() == 1
 		
 	}
 	
@@ -68,7 +68,7 @@ class CustomLinkedListSpec extends Specification{
 		then:
 		customLinkedList.first.data == 15
 		customLinkedList.last.data == 44
-		customLinkedList.size == 3
+		customLinkedList.size() == 3
 		
 	}
 	
@@ -79,7 +79,7 @@ class CustomLinkedListSpec extends Specification{
 		def deletedEntry = customLinkedList.deleteFirst();
 		
 		then:
-		customLinkedList.size == 0
+		customLinkedList.size() == 0
 		thrown NoSuchElementException
 		
 	}
@@ -92,7 +92,7 @@ class CustomLinkedListSpec extends Specification{
 		def deletedEntry = customLinkedList.deleteFirst();
 		
 		then:
-		customLinkedList.size == 0
+		customLinkedList.size() == 0
 		customLinkedList.first == null
 		customLinkedList.last == null
 		
@@ -108,7 +108,7 @@ class CustomLinkedListSpec extends Specification{
 		
 		then:
 		deletedEntry == 15
-		customLinkedList.size == 1
+		customLinkedList.size() == 1
 		customLinkedList.first.data == 23
 		customLinkedList.last.data == 23
 		
@@ -126,7 +126,7 @@ class CustomLinkedListSpec extends Specification{
 		
 		then:
 		deletedEntry == 15
-		customLinkedList.size == 3
+		customLinkedList.size() == 3
 		customLinkedList.first.data == 23
 		customLinkedList.last.data == 65
 		
@@ -139,7 +139,7 @@ class CustomLinkedListSpec extends Specification{
 		def deletedEntry = customLinkedList.deleteLast();
 		
 		then:
-		customLinkedList.size == 0
+		customLinkedList.size() == 0
 		thrown NoSuchElementException
 		
 	}
@@ -152,7 +152,7 @@ class CustomLinkedListSpec extends Specification{
 		def deletedEntry = customLinkedList.deleteLast();
 		
 		then:
-		customLinkedList.size == 0
+		customLinkedList.size() == 0
 		customLinkedList.first == null
 		customLinkedList.last == null
 		
@@ -168,7 +168,7 @@ class CustomLinkedListSpec extends Specification{
 		
 		then:
 		deletedEntry == 23
-		customLinkedList.size == 1
+		customLinkedList.size() == 1
 		customLinkedList.first.data == 15
 		customLinkedList.last.data == 15
 		
@@ -186,7 +186,7 @@ class CustomLinkedListSpec extends Specification{
 		
 		then:
 		deletedEntry == 65
-		customLinkedList.size == 3
+		customLinkedList.size() == 3
 		customLinkedList.first.data == 15
 		customLinkedList.last.data == 44
 		
@@ -217,7 +217,7 @@ class CustomLinkedListSpec extends Specification{
 		
 	}
 	
-	def "contains() when list has the data, should return true"() {
+	def "contains() when list has some data, should return true"() {
 		given:
 		customLinkedList.addLast(15);
 		customLinkedList.addLast(23);
@@ -269,7 +269,7 @@ class CustomLinkedListSpec extends Specification{
 		
 	}
 	
-	def "indexOf() when list has the data, should return the index of the data"() {
+	def "indexOf() when list has some data, should return the index of the data"() {
 		given:
 		customLinkedList.addLast(15);
 		customLinkedList.addLast(23);
@@ -294,5 +294,34 @@ class CustomLinkedListSpec extends Specification{
 		
 		then:
 		result == 4
+	}
+	
+	def "toArray() when the list is empty, shoud return an empty array"() {
+		given:
+		
+		when: "Searched data is the first item"
+		def result = customLinkedList.toArray();
+		
+		then:
+		result == []
+	}
+	
+	def "toArray() when list has some data, should return an array containing the data"() {
+		given:
+		customLinkedList.addLast(15);
+		
+		when: "The list has only one item"
+		def result = customLinkedList.toArray();
+		
+		then:
+		result == [15]
+		
+		when: "The list has multiple items"
+		customLinkedList.addLast(83);
+		customLinkedList.addLast(57);
+		result = customLinkedList.toArray();
+		
+		then:
+		result == [15, 83, 57]
 	}
 }
