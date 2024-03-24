@@ -157,7 +157,11 @@ public class CustomLinkedList<T> {
 	}
 
 	public Node<T> findKthFromTheEnd(int k) {
-		if(k < 0 || k > size) {
+		if(isEmpty()) {
+			throw new IllegalStateException();
+		}
+		
+		if(k > size) {
 			throw new IllegalArgumentException();
 		}
 

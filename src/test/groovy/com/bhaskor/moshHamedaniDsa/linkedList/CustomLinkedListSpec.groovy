@@ -367,14 +367,14 @@ class CustomLinkedListSpec extends Specification{
 		customLinkedList.toArray() == [66, 24, 15, 83, 57]
 	}
 	
-	def "findKthFromTheEnd() when invalid input for K, should throw IllegalArgumentException"() {
+	def "findKthFromTheEnd() when invalid input for K, should throw RuntineException"() {
 		given:
 		
 		when: "List is empty"
 		def result = customLinkedList.findKthFromTheEnd(2);
 		
 		then:
-		thrown IllegalArgumentException
+		thrown IllegalStateException
 		
 		when: "K is greate than list size"
 		customLinkedList.addLast(15);
