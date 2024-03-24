@@ -137,42 +137,24 @@ public class CustomLinkedList<T> {
 	}
 
 	public void reverse() {
-		if (isEmpty() || listHasOneEntry()) {
-			return;
-		}
-
-		if(size == 2) {
-			first.next = null;
-			last.next = first;
-			
-			Node<T> temp = first;
-			first = last;
-			last = temp;
+		if(isEmpty()) {
 			return;
 		}
 		
-		Node<T> previous = null;
-		Node<T> current = first;
-		Node<T> nextNode = first.next;
-
-		while (nextNode != null) {
-			Node<T> temp = nextNode.next;
-			nextNode.next = current;
+		Node<T> previous = first;
+		Node<T> current = first.next;
+		
+		while(current != null) {
+			Node<T> next = current.next;
 			current.next = previous;
-
-			previous = nextNode;
-			current = temp;
-			nextNode = temp.next;
+			previous = current;
+			current = next;
 		}
-
-		current.next = previous;
+		
 		last = first;
-		first = current;
+		last.next = null;
+		first = previous;
 	}
-	// null [A, B], [B, C], [C, D], [D, E], [E, x]
-	// ^ ^ ^
-
-	// [A, x], [B, A], [C, B], [D, C], [E, D]
 
 	private boolean isEmpty() {
 		return first == null;
