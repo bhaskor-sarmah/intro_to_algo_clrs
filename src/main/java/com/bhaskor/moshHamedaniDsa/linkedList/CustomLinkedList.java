@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  * 
  * <p>
  * Methods to be created <code>addFirst() addLast() deleteFirst() deleteLast()
- *  contains() indexOf() size() toArray() reverse()</code>
+ *  contains() indexOf() size() toArray() reverse() findKthFromTheEnd()</code>
  * 
  * @author bhaskor
  */
@@ -156,6 +156,27 @@ public class CustomLinkedList<T> {
 		first = previous;
 	}
 
+	public Node<T> findKthFromTheEnd(int k) {
+		if(k < 0 || k > size) {
+			throw new IllegalArgumentException();
+		}
+
+		int counter = 1;
+		
+		Node<T> firstPointer = first;
+		Node<T> secondPointer = first;
+		while(counter++ < k) {
+			secondPointer = secondPointer.next;
+		}
+		
+		while(secondPointer.next != null) {
+			firstPointer = firstPointer.next;
+			secondPointer = secondPointer.next;
+		}
+		
+		return firstPointer;
+	}
+	
 	private boolean isEmpty() {
 		return first == null;
 	}

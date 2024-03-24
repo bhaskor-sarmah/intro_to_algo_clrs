@@ -366,4 +366,50 @@ class CustomLinkedListSpec extends Specification{
 		customLinkedList.size() == 5
 		customLinkedList.toArray() == [66, 24, 15, 83, 57]
 	}
+	
+	def "findKthFromTheEnd() when invalid input for K, should throw IllegalArgumentException"() {
+		given:
+		
+		when: "List is empty"
+		def result = customLinkedList.findKthFromTheEnd(2);
+		
+		then:
+		thrown IllegalArgumentException
+		
+		when: "K is greate than list size"
+		customLinkedList.addLast(15);
+		customLinkedList.addLast(24);
+		result = customLinkedList.findKthFromTheEnd(3);
+		
+		then:
+		thrown IllegalArgumentException
+	}
+	
+	def "findKthFromTheEnd() when list has items, should return the Kth item from the last"() {
+		given:
+		customLinkedList.addLast(83);
+		
+		when: "List has one item"
+		def result = customLinkedList.findKthFromTheEnd(1);
+		
+		then:
+		result.data == 83;
+		
+		when: "List has two items"
+		customLinkedList.addLast(57);
+		result = customLinkedList.findKthFromTheEnd(2);
+		
+		then:
+		result.data == 83;
+		
+		when: "List has more than two items"
+		customLinkedList.addLast(57);
+		customLinkedList.addLast(15);
+		customLinkedList.addLast(24);
+		customLinkedList.addLast(66);
+		result = customLinkedList.findKthFromTheEnd(3);
+		
+		then:
+		result.data == 15;
+	}
 }
