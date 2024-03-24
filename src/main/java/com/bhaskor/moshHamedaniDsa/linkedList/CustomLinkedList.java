@@ -6,8 +6,8 @@ import java.util.NoSuchElementException;
  * Exercise: Building an implementation of linked list.
  * 
  * <p>
- * Methods to be created
- * <code>addFirst() addLast() deleteFirst() deleteLast() contains() indexOf() size() toArray()</code>
+ * Methods to be created <code>addFirst() addLast() deleteFirst() deleteLast()
+ *  contains() indexOf() size() toArray() reverse()</code>
  * 
  * @author bhaskor
  */
@@ -135,6 +135,44 @@ public class CustomLinkedList<T> {
 
 		return array;
 	}
+
+	public void reverse() {
+		if (isEmpty() || listHasOneEntry()) {
+			return;
+		}
+
+		if(size == 2) {
+			first.next = null;
+			last.next = first;
+			
+			Node<T> temp = first;
+			first = last;
+			last = temp;
+			return;
+		}
+		
+		Node<T> previous = null;
+		Node<T> current = first;
+		Node<T> nextNode = first.next;
+
+		while (nextNode != null) {
+			Node<T> temp = nextNode.next;
+			nextNode.next = current;
+			current.next = previous;
+
+			previous = nextNode;
+			current = temp;
+			nextNode = temp.next;
+		}
+
+		current.next = previous;
+		last = first;
+		first = current;
+	}
+	// null [A, B], [B, C], [C, D], [D, E], [E, x]
+	// ^ ^ ^
+
+	// [A, x], [B, A], [C, B], [D, C], [E, D]
 
 	private boolean isEmpty() {
 		return first == null;

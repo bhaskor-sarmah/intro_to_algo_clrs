@@ -324,4 +324,46 @@ class CustomLinkedListSpec extends Specification{
 		then:
 		result == [15, 83, 57]
 	}
+	
+	def "reverse() when list has no data or one data, should do nothing"() {
+		given:
+		
+		when: "List has not data"
+		customLinkedList.reverse();
+		
+		then:
+		customLinkedList.size() == 0
+		customLinkedList.toArray() == []
+		
+		when: "List has one element"
+		customLinkedList.addLast(15);
+		customLinkedList.reverse();
+		
+		then:
+		customLinkedList.size() == 1
+		customLinkedList.toArray() == [15]
+	}
+	
+	def "reverse() when list has two or more items, should reverse the list"() {
+		given:
+		customLinkedList.addLast(83);
+		customLinkedList.addLast(57);
+		
+		when: "List has two items"
+		customLinkedList.reverse();
+		
+		then:
+		customLinkedList.size() == 2
+		customLinkedList.toArray() == [57, 83]
+		
+		when: "List has more than 2 elements"
+		customLinkedList.addLast(15);
+		customLinkedList.addLast(24);
+		customLinkedList.addLast(66);
+		customLinkedList.reverse();
+		
+		then:
+		customLinkedList.size() == 5
+		customLinkedList.toArray() == [66, 24, 15, 83, 57]
+	}
 }
