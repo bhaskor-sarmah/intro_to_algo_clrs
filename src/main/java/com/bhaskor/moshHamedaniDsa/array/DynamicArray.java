@@ -10,18 +10,19 @@ package com.bhaskor.moshHamedaniDsa.array;
  * 
  * @author bhaskor
  */
-public class DynamicArray {
+public class DynamicArray<T> {
 
 	private int arraySize;
-	private int[] internalArray;
+	private T[] internalArray;
 	private int noOfElement = 0;
 
+	@SuppressWarnings("unchecked")
 	DynamicArray(final int initialSize) {
 		arraySize = initialSize;
-		internalArray = new int[arraySize];
+		internalArray = (T[]) new Object[arraySize];
 	}
 
-	public void insert(final int element) {
+	public void insert(final T element) {
 		if (noOfElement >= arraySize) {
 			resizeArray();
 		}
@@ -39,7 +40,7 @@ public class DynamicArray {
 		noOfElement--;
 	}
 
-	public int indexOf(int element) {
+	public int indexOf(T element) {
 		for (int i = 0; i < noOfElement; i++) {
 			if (internalArray[i] == element)
 				return i;
@@ -51,8 +52,9 @@ public class DynamicArray {
 		return noOfElement;
 	}
 	
-	public int[] getItems() {
-		final int[] resultArray = new int[noOfElement+1];
+	public T[] getItems() {
+		@SuppressWarnings("unchecked")
+		final T[] resultArray = (T[]) new Object[noOfElement+1];
 		
 		copyArrayDataIntoNewArray(resultArray);
 		
@@ -62,14 +64,15 @@ public class DynamicArray {
 	private void resizeArray() {
 		// Growing the Array size by 50% of original size
 		arraySize *= 1.5;
-		int[] newArray = new int[(int) (arraySize)];
+		@SuppressWarnings("unchecked")
+		T[] newArray = (T[]) new Object[(int) (arraySize)];
 
 		copyArrayDataIntoNewArray(newArray);
 
 		internalArray = newArray;
 	}
 
-	private void copyArrayDataIntoNewArray(int[] newArray) {
+	private void copyArrayDataIntoNewArray(T[] newArray) {
 		for (int i = 0; i < noOfElement; i++) {
 			newArray[i] = internalArray[i];
 		}

@@ -11,12 +11,12 @@ import spock.lang.Subject
 class DynamicArraySpec  extends Specification{
 	
 	@Subject
-	DynamicArray dynamicArray;
+	DynamicArray<Integer> dynamicArray;
 	
 	def dynamicArrayInitialSize = 3
 	
 	def setup() {
-		dynamicArray = new DynamicArray(dynamicArrayInitialSize)
+		dynamicArray = new DynamicArray<>(dynamicArrayInitialSize)
 	}
 	
 	def "Insert two elements in the array should insert successfully"() {
